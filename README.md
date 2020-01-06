@@ -5,7 +5,7 @@
 [![circleci](https://circleci.com/gh/nektro/SiteRippers.svg?style=svg)](https://circleci.com/gh/nektro/SiteRippers)
 [![goreportcard](https://goreportcard.com/badge/github.com/nektro/SiteRippers)](https://goreportcard.com/report/github.com/nektro/SiteRippers)
 
-A collection of Golang scripts to do entire rips of sites centralized in a single repo because it got old making individual repos for rippers that all follow the same architecture. This way it's easier to update them, they're easier to distribute, and they're easier to teach about.
+A collection of Golang scripts to do entire rips of sites centralized in a single repo.
 
 ## Prerequisites
 - Golang 1.12+
