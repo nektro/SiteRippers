@@ -15,19 +15,16 @@ import (
 )
 
 func main() {
-	flagSaveDir := pflag.String("save-dir", "", "")
-	flagConcurr := pflag.Int("concurrency", 10, "")
-	flagSites := pflag.StringArray("site", []string{}, "")
+	flagSaveDir := pflag.String("save-dir", "./data/", "Path to folder to save downloaded data to.")
+	flagConcurr := pflag.Int("concurrency", 10, "Maximum number of tasks to run at once. Exactly how tasks are used varies slightly.")
+	flagSites := pflag.StringArray("site", []string{}, "List of domains of sites to rip. None passed means rip all.")
 	pflag.Parse()
 
 	//
 
-	doneDir := "./data/"
-	if len(*flagSaveDir) > 0 {
-		doneDir = *flagSaveDir
-	}
+	doneDir := *flagSaveDir
 	doneDir, _ = filepath.Abs(doneDir)
-	util.Assert(util.DoesDirectoryExist(doneDir), "--done-dir must point to a valid directory!")
+	util.Assert(util.DoesDirectoryExist(doneDir), "--done-dir must point to a valid existing directory!")
 
 	util.RunOnClose(onClose)
 	mbpp.Init(*flagConcurr)
