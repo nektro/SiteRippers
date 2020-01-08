@@ -4,10 +4,12 @@ import (
 	"archive/tar"
 	"compress/gzip"
 	"io"
+	"net/http"
 	"net/url"
 	"os"
 	"strings"
 
+	"github.com/PuerkitoBio/goquery"
 	"github.com/nektro/go-util/mbpp"
 )
 
@@ -59,4 +61,20 @@ func GetPathFile(p string) string {
 func GetUrlPathFile(urlS string) string {
 	urlO, _ := url.Parse(urlS)
 	return GetPathFile(urlO.Path)
+}
+
+func FetchDoc(urlS string) (*goquery.Document, error) {
+	req, err := http.NewRequest(http.MethodGet, urlS, nil)
+	if err != nil {
+		return nil, err
+	}
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	doc, err := goquery.NewDocumentFromResponse(res)
+	if err != nil {
+		return nil, err
+	}
+	return doc, nil
 }
