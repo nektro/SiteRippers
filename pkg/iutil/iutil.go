@@ -68,6 +68,7 @@ func GetUrlPathFile(urlS string) string {
 
 func Fetch(urlS string) (*http.Response, error) {
 	req, err := http.NewRequest(http.MethodGet, urlS, nil)
+	req.Header.Add("user-agent", "nektro/SiteRippers")
 	if err != nil {
 		return nil, err
 	}
