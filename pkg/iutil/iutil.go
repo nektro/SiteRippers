@@ -5,6 +5,7 @@ import (
 	"compress/gzip"
 	"errors"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
@@ -12,6 +13,7 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/nektro/go-util/mbpp"
+	"github.com/valyala/fastjson"
 )
 
 func CreateTarball(tarballFilePath string, topDir string, filePaths []string) error {
@@ -89,4 +91,20 @@ func FetchDoc(urlS string) (*goquery.Document, error) {
 		return nil, err
 	}
 	return doc, nil
+}
+
+func FetchJson(urlS string) (*fastjson.Value, error) {
+	res, err := Fetch(urlS)
+	if err != nil {
+		return nil, err
+	}
+	bys, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return nil, err
+	}
+	val, err := fastjson.ParseBytes(bys)
+	if err != nil {
+		return nil, err
+	}
+	return val, nil
 }
