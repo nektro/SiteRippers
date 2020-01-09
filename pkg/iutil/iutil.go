@@ -3,6 +3,7 @@ package iutil
 import (
 	"archive/tar"
 	"compress/gzip"
+	"errors"
 	"io"
 	"net/http"
 	"net/url"
@@ -63,12 +64,23 @@ func GetUrlPathFile(urlS string) string {
 	return GetPathFile(urlO.Path)
 }
 
-func FetchDoc(urlS string) (*goquery.Document, error) {
+func Fetch(urlS string) (*http.Response, error) {
 	req, err := http.NewRequest(http.MethodGet, urlS, nil)
 	if err != nil {
 		return nil, err
 	}
 	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if res.StatusCode != http.StatusOK {
+		return nil, errors.New(res.Status)
+	}
+	return res, nil
+}
+
+func FetchDoc(urlS string) (*goquery.Document, error) {
+	res, err := Fetch(urlS)
 	if err != nil {
 		return nil, err
 	}
