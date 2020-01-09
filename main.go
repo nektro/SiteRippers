@@ -26,6 +26,8 @@ func main() {
 	doneDir, _ = filepath.Abs(doneDir)
 	util.Assert(util.DoesDirectoryExist(doneDir), "--done-dir must point to a valid existing directory!")
 
+	idata.Concurrency = *flagConcurr
+
 	util.RunOnClose(onClose)
 	mbpp.Init(*flagConcurr)
 

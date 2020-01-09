@@ -1,5 +1,6 @@
 package idata
 
 var (
-	Handlers = map[string]func(string, string){}
+	Handlers    = map[string]func(string, string){}
+	Concurrency int
 )
