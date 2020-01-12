@@ -17,7 +17,7 @@ import (
 func main() {
 	flagSaveDir := pflag.String("save-dir", "./data/", "Path to folder to save downloaded data to.")
 	flagConcurr := pflag.Int("concurrency", 10, "Maximum number of tasks to run at once. Exactly how tasks are used varies slightly.")
-	flagSites := pflag.StringArray("site", []string{}, "List of domains of sites to rip. None passed means rip all.")
+	flagSite := pflag.String("site", "", "Domain of site to rip. None passed means rip all.")
 	pflag.Parse()
 
 	//
@@ -33,11 +33,9 @@ func main() {
 
 	//
 
-	for _, item := range *flagSites {
-		dd := doneDir + "/" + item
-		os.MkdirAll(dd, os.ModePerm)
-		idata.Handlers[item](item, dd)
-	}
+	dd := doneDir + "/" + *flagSite
+	os.MkdirAll(dd, os.ModePerm)
+	idata.Handlers[*flagSite](*flagSite, dd)
 
 	//
 
