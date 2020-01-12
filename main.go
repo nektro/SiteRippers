@@ -15,27 +15,27 @@ import (
 )
 
 func main() {
-	flagSaveDir := pflag.String("save-dir", "./data/", "Path to folder to save downloaded data to.")
-	flagConcurr := pflag.Int("concurrency", 10, "Maximum number of tasks to run at once. Exactly how tasks are used varies slightly.")
-	flagSite := pflag.String("site", "", "Domain of site to rip. None passed means rip all.")
+	flagSD := pflag.String("save-dir", "./data/", "Path to folder to save downloaded data to.")
+	flagCC := pflag.Int("concurrency", 10, "Maximum number of tasks to run at once. Exactly how tasks are used varies slightly.")
+	flagSN := pflag.String("site", "", "Domain of site to rip. None passed means rip all.")
 	pflag.Parse()
 
 	//
 
-	doneDir := *flagSaveDir
+	doneDir := *flagSD
 	doneDir, _ = filepath.Abs(doneDir)
 	util.Assert(util.DoesDirectoryExist(doneDir), "--done-dir must point to a valid existing directory!")
 
-	idata.Concurrency = *flagConcurr
+	idata.Concurrency = *flagCC
 
 	util.RunOnClose(onClose)
-	mbpp.Init(*flagConcurr)
+	mbpp.Init(*flagCC)
 
 	//
 
-	dd := doneDir + "/" + *flagSite
+	dd := doneDir + "/" + *flagSN
 	os.MkdirAll(dd, os.ModePerm)
-	idata.Handlers[*flagSite](*flagSite, dd)
+	idata.Handlers[*flagSN](*flagSN, dd)
 
 	//
 
