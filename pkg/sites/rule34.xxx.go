@@ -2,7 +2,6 @@ package sites
 
 import (
 	"fmt"
-	"net/http"
 	"os"
 	"strconv"
 	"sync"
@@ -10,7 +9,6 @@ import (
 	"github.com/nektro/SiteRippers/pkg/idata"
 	"github.com/nektro/SiteRippers/pkg/iutil"
 
-	"github.com/PuerkitoBio/goquery"
 	"github.com/nektro/go-util/mbpp"
 	"github.com/nektro/go-util/util"
 )
@@ -20,18 +18,8 @@ func init() {
 
 		grabPost := func(id string, b *mbpp.BarProxy, w *sync.WaitGroup) string {
 			defer b.Increment(1)
-
-			req, _ := http.NewRequest(http.MethodGet, "https://"+site+"/index.php?page=post&s=view&id="+id, nil)
-			res, err := http.DefaultClient.Do(req)
-			if err != nil {
-				w.Done()
-				return ""
-			}
-			if res.StatusCode != http.StatusOK {
-				w.Done()
-				return ""
-			}
-			doc, _ := goquery.NewDocumentFromResponse(res)
+			//
+			doc, _ := iutil.FetchDoc("https://"+site+"/index.php?page=post&s=view&id="+id, nil)
 			urlS, _ := doc.Find(`div.sidebar a[href^="https"]`).Eq(0).Attr("href")
 			pth := iutil.GetPathFile(urlS)
 			if len(pth) == 0 {
@@ -49,9 +37,7 @@ func init() {
 		//
 		//
 
-		req, _ := http.NewRequest(http.MethodGet, "https://"+site+"/index.php?page=post&s=list", nil)
-		res, _ := http.DefaultClient.Do(req)
-		doc, _ := goquery.NewDocumentFromResponse(res)
+		doc, _ := iutil.FetchDoc("https://"+site+"/index.php?page=post&s=list", nil)
 		c, _ := doc.Find("div span.thumb").Eq(0).Attr("id")
 
 		max, _ := strconv.Atoi(c[1:])
