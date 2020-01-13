@@ -119,3 +119,10 @@ func RemoveAll(s string, subs ...string) string {
 	}
 	return s
 }
+
+func PadLeft(s string, leng int, pre string) string {
+	if len(s) >= leng {
+		return s
+	}
+	return PadLeft(pre+s, leng, pre)
+}
