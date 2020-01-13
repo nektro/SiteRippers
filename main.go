@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 
@@ -17,7 +18,17 @@ func main() {
 	flagSD := pflag.String("save-dir", "./data/", "Path to folder to save downloaded data to.")
 	flagCC := pflag.Int("concurrency", 10, "Maximum number of tasks to run at once. Exactly how tasks are used varies slightly.")
 	flagSN := pflag.String("site", "", "Domain of site to rip. None passed means rip all.")
+	flagLS := pflag.Bool("list", false, "Pass this to list all supported domains.")
 	pflag.Parse()
+
+	//
+
+	if *flagLS {
+		for k := range idata.Handlers {
+			fmt.Println(k)
+		}
+		os.Exit(0)
+	}
 
 	//
 
