@@ -3,7 +3,6 @@ package main
 import (
 	"os"
 	"path/filepath"
-	"time"
 
 	"github.com/nektro/SiteRippers/pkg/idata"
 
@@ -41,7 +40,6 @@ func main() {
 
 	//
 
-	time.Sleep(time.Second / 2)
 	mbpp.Wait()
 	onClose()
 }
