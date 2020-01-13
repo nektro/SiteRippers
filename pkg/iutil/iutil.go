@@ -112,3 +112,10 @@ func FetchJson(urlS string, headers map[string]string) (*fastjson.Value, error) 
 	}
 	return val, nil
 }
+
+func RemoveAll(s string, subs ...string) string {
+	for _, item := range subs {
+		s = strings.ReplaceAll(s, item, "")
+	}
+	return s
+}
