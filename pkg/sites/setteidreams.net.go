@@ -21,7 +21,7 @@ import (
 func init() {
 	idata.Handlers["setteidreams.net"] = func(site, doneDir string) {
 		// grab artbooks
-		docA, _ := iutil.FetchDoc("http://" + site + "/artbooks/")
+		docA, _ := iutil.FetchDoc("http://"+site+"/artbooks/", nil)
 		os.MkdirAll(doneDir+"/artbooks", os.ModePerm)
 
 		lA := docA.Find("table#dtBasicExample tr td a")
@@ -33,7 +33,7 @@ func init() {
 			series := d.Eq(1).Text()
 			//
 			lnk, _ := a.Attr("href")
-			doc2, _ := iutil.FetchDoc("http://" + site + lnk + "/")
+			doc2, _ := iutil.FetchDoc("http://"+site+lnk+"/", nil)
 			rar, _ := doc2.Find(".content-wrap").Children().Eq(1).Children().Eq(0).Attr("href")
 			//
 			title := strings.ReplaceAll(fmt.Sprintf("[Artbook] %s (%s)(%s).cbr", name, year, series), "/", "+")
@@ -41,7 +41,7 @@ func init() {
 		})
 
 		// grab settei
-		docS, _ := iutil.FetchDoc("http://" + site + "/settei/")
+		docS, _ := iutil.FetchDoc("http://"+site+"/settei/", nil)
 		os.MkdirAll(doneDir+"/settei", os.ModePerm)
 
 		lS := docS.Find("table#dtBasicExample tr td a")
@@ -53,7 +53,7 @@ func init() {
 			studio := d.Eq(4).Text()
 			//
 			lnk, _ := a.Attr("href")
-			doc2, _ := iutil.FetchDoc("http://" + site + lnk + "/")
+			doc2, _ := iutil.FetchDoc("http://"+site+lnk+"/", nil)
 			rar, _ := doc2.Find(".content-wrap").Children().Eq(1).Children().Eq(0).Attr("href")
 			//
 			title := strings.ReplaceAll(fmt.Sprintf("[Settei] %s (%s)(%s).cbr", name, year, studio), "/", "+")

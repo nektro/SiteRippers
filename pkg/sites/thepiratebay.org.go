@@ -32,7 +32,7 @@ func init() {
 			fmt.Fprintln(f, nfo)
 		}
 
-		doc, err := iutil.FetchDoc("https://" + site + "/recent")
+		doc, err := iutil.FetchDoc("https://"+site+"/recent", nil)
 		util.DieOnError(err)
 		mRec, _ := doc.Find("tr td div.detName a.detLink").Eq(0).Attr("href")
 		max, err := strconv.Atoi(strings.Split(mRec, "/")[2])
@@ -50,7 +50,7 @@ func init() {
 				go mbpp.CreateJob("/torrent/"+js, func(*mbpp.BarProxy) {
 					defer bar.Increment(1)
 					defer guard.Release(1)
-					doc2, err := iutil.FetchDoc("https://" + site + "/torrent/" + js + "/")
+					doc2, err := iutil.FetchDoc("https://"+site+"/torrent/"+js+"/", nil)
 					if err != nil {
 						return
 					}

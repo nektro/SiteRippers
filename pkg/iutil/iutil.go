@@ -66,9 +66,12 @@ func GetUrlPathFile(urlS string) string {
 	return GetPathFile(urlO.Path)
 }
 
-func Fetch(urlS string) (*http.Response, error) {
+func Fetch(urlS string, headers map[string]string) (*http.Response, error) {
 	req, err := http.NewRequest(http.MethodGet, urlS, nil)
 	req.Header.Add("user-agent", "nektro/SiteRippers")
+	for k, v := range headers {
+		req.Header.Add(k, v)
+	}
 	if err != nil {
 		return nil, err
 	}
@@ -82,8 +85,8 @@ func Fetch(urlS string) (*http.Response, error) {
 	return res, nil
 }
 
-func FetchDoc(urlS string) (*goquery.Document, error) {
-	res, err := Fetch(urlS)
+func FetchDoc(urlS string, headers map[string]string) (*goquery.Document, error) {
+	res, err := Fetch(urlS, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -94,8 +97,8 @@ func FetchDoc(urlS string) (*goquery.Document, error) {
 	return doc, nil
 }
 
-func FetchJson(urlS string) (*fastjson.Value, error) {
-	res, err := Fetch(urlS)
+func FetchJson(urlS string, headers map[string]string) (*fastjson.Value, error) {
+	res, err := Fetch(urlS, headers)
 	if err != nil {
 		return nil, err
 	}
