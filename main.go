@@ -8,6 +8,7 @@ import (
 	"github.com/nektro/SiteRippers/pkg/idata"
 
 	"github.com/nektro/go-util/mbpp"
+	"github.com/nektro/go-util/types"
 	"github.com/nektro/go-util/util"
 	"github.com/spf13/pflag"
 
@@ -19,6 +20,7 @@ func main() {
 	flagCC := pflag.Int("concurrency", 10, "Maximum number of tasks to run at once. Exactly how tasks are used varies slightly.")
 	flagSN := pflag.String("site", "", "Domain of site to rip. None passed means rip all.")
 	flagLS := pflag.Bool("list", false, "Pass this to list all supported domains.")
+	flagBC := pflag.Int("job-workers", 5, "Maximum number of tasks to initialize in parallel the the background.")
 	pflag.Parse()
 
 	//
@@ -37,6 +39,7 @@ func main() {
 	util.Assert(util.DoesDirectoryExist(doneDir), "--done-dir must point to a valid existing directory!")
 
 	idata.Concurrency = *flagCC
+	idata.Guard = types.NewSemaphore(*flagBC)
 
 	util.RunOnClose(onClose)
 	mbpp.Init(*flagCC)
