@@ -152,3 +152,8 @@ func SplitLen(str string, size int) []string {
 	}
 	return splited
 }
+
+func UrlExt(urlS string) string {
+	urlO, _ := url.Parse(urlS)
+	return filepath.Ext(urlO.Path)
+}
