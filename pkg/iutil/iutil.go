@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
@@ -126,4 +127,10 @@ func PadLeft(s string, leng int, pre string) string {
 		return s
 	}
 	return PadLeft(pre+s, leng, pre)
+}
+
+func DownloadTo(urlS string, dir string, bar *mbpp.BarProxy) {
+	u, _ := url.Parse(urlS)
+	fn := u.Path[len(filepath.Dir(u.Path)):]
+	mbpp.CreateDownloadJob(urlS, dir+fn, bar)
 }
