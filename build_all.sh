@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 build_template() {
-    export CGO_ENABLED=0
     export GOOS=$1
     export GOARCH=$2
     ext=$3
