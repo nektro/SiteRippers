@@ -1,0 +1,5 @@
+func init() {
+	idata.Handlers["domain.tld"] = func(site, doneDir string) {
+		//
+	}
+}
