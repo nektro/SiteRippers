@@ -69,6 +69,7 @@ func GetUrlPathFile(urlS string) string {
 func Fetch(urlS string, headers map[string]string) (*http.Response, error) {
 	req, err := http.NewRequest(http.MethodGet, urlS, nil)
 	req.Header.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36")
+	req.Header.Add("connection", "close")
 	for k, v := range headers {
 		req.Header.Add(k, v)
 	}
