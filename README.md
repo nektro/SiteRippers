@@ -2,8 +2,11 @@
 ![loc](https://sloc.xyz/github/nektro/SiteRippers)
 [![license](https://img.shields.io/github/license/nektro/SiteRippers.svg)](https://github.com/nektro/SiteRippers/blob/master/LICENSE)
 [![discord](https://img.shields.io/discord/551971034593755159.svg)](https://discord.gg/P6Y4zQC)
+[![paypal](https://img.shields.io/badge/donate-paypal-009cdf)](https://paypal.me/nektro)
 [![circleci](https://circleci.com/gh/nektro/SiteRippers.svg?style=svg)](https://circleci.com/gh/nektro/SiteRippers)
+[![release](https://img.shields.io/github/v/release/nektro/SiteRippers)](https://github.com/nektro/SiteRippers/releases/latest)
 [![goreportcard](https://goreportcard.com/badge/github.com/nektro/SiteRippers)](https://goreportcard.com/report/github.com/nektro/SiteRippers)
+[![codefactor](https://www.codefactor.io/repository/github/nektro/SiteRippers/badge)](https://www.codefactor.io/repository/github/nektro/SiteRippers)
 
 A collection of Golang scripts to do entire rips of sites centralized in a single repo.
 
