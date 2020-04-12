@@ -21,6 +21,7 @@ func main() {
 	flagSN := pflag.String("site", "", "Domain of site to rip. None passed means rip all.")
 	flagLS := pflag.Bool("list", false, "Pass this to list all supported domains.")
 	flagBC := pflag.Int("job-workers", 5, "Maximum number of tasks to initialize in parallel the the background.")
+	flagSA := pflag.String("as", "", "site alias")
 	pflag.Parse()
 
 	//
@@ -50,7 +51,7 @@ func main() {
 	fn, ok := idata.Handlers[*flagSN]
 	util.DieOnError(util.Assert(ok, "SiteRipper does not support that domain!"))
 	os.MkdirAll(dd, os.ModePerm)
-	fn(*flagSN, dd)
+	fn(util.FirstNonEmptyS(*flagSA, *flagSN), dd)
 
 	//
 

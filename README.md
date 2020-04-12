@@ -16,6 +16,7 @@ https://github.com/nektro/SiteRippers/releases/latest
 ## Usage
 ```
 Usage of ./SiteRippers:
+      --as string           site alias
       --concurrency int     Maximum number of tasks to run at once. Exactly how tasks are used varies slightly. (default 10)
       --job-workers int     Maximum number of tasks to initialize in parallel the the background. (default 5)
       --list                Pass this to list all supported domains.
