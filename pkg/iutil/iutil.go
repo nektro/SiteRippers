@@ -100,12 +100,20 @@ func FetchDoc(urlS string, headers map[string]string) (*goquery.Document, error)
 	return doc, nil
 }
 
-func FetchJson(urlS string, headers map[string]string) (*fastjson.Value, error) {
+func FetchBin(urlS string, headers map[string]string) ([]byte, error) {
 	res, err := Fetch(urlS, headers)
 	if err != nil {
 		return nil, err
 	}
 	bys, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return nil, err
+	}
+	return bys, nil
+}
+
+func FetchJson(urlS string, headers map[string]string) (*fastjson.Value, error) {
+	bys, err := FetchBin(urlS, headers)
 	if err != nil {
 		return nil, err
 	}
