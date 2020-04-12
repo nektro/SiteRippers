@@ -131,9 +131,7 @@ func PadLeft(s string, leng int, pre string) string {
 }
 
 func DownloadTo(urlS string, dir string, bar *mbpp.BarProxy) {
-	u, _ := url.Parse(urlS)
-	fn := u.Path[len(filepath.Dir(u.Path)):]
-	mbpp.CreateDownloadJob(urlS, dir+fn, bar)
+	mbpp.CreateDownloadJob(urlS, dir+"/"+GetUrlPathFile(urlS), bar)
 }
 
 // from SO
