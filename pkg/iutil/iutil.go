@@ -210,3 +210,12 @@ func PackCbzArchive(dirIn string) {
 		b.Increment(1)
 	})
 }
+
+func MarshalJSON(v interface{}) []byte {
+	res, _ := json.Marshal(&v)
+	return res
+}
+
+func DownloadToPrefix(urlS string, dir string, prefix string, bar *mbpp.BarProxy) {
+	mbpp.CreateDownloadJob(urlS, dir+"/"+prefix+GetUrlPathFile(urlS), bar)
+}
