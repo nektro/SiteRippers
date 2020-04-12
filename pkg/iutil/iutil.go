@@ -124,6 +124,26 @@ func FetchJson(urlS string, headers map[string]string) (*fastjson.Value, error) 
 	return val, nil
 }
 
+// FetchDocAs means Fetch Doc A's
+// params are total, index, string
+// returns if total > 0
+func FetchDocAs(urlS string, headers map[string]string, sel string, f func(int, int, string, *goquery.Selection)) bool {
+	doc, err := FetchDoc(urlS, headers)
+	if err != nil {
+		return false
+	}
+	arr := doc.Find(sel)
+	n := arr.Length()
+	arr.Each(func(i int, el *goquery.Selection) {
+		hf, ok := el.Attr("href")
+		if !ok {
+			return
+		}
+		f(n, i, hf, el)
+	})
+	return arr.Length() > 0
+}
+
 func RemoveAll(s string, subs ...string) string {
 	for _, item := range subs {
 		s = strings.ReplaceAll(s, item, "")
