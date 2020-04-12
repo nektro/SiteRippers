@@ -22,7 +22,7 @@ func init() {
 	idata.Handlers["www.biodiversitylibrary.org"] = func(site, doneDir string) {
 
 		getMax := func() int {
-			doc, err := iutil.FetchDoc("https://www.biodiversitylibrary.org/recent", nil)
+			doc, err := iutil.FetchDoc("https://"+site+"/recent", nil)
 			util.DieOnError(err)
 			id, _ := doc.Find("section.recentfeed li a.booktitle").First().Attr("href")
 			id = strings.Split(id, "/")[2]
@@ -42,7 +42,7 @@ func init() {
 					defer idata.Guard.Done()
 					//
 					n := strconv.Itoa(x)
-					iurlS := "https://www.biodiversitylibrary.org/item/" + n
+					iurlS := "https://" + site + "/item/" + n
 					res, err := http.Head(iurlS)
 					if err != nil {
 						return
@@ -60,7 +60,7 @@ func init() {
 					t, _ := doc.Find(`meta[name="citation_title"]`).Attr("content")
 					t = strings.ReplaceAll(t, "/", "+")
 					f := doneDir + "/" + "[" + n + "]" + " " + t + ".pdf"
-					urlS := "https://www.biodiversitylibrary.org/itempdf/" + n
+					urlS := "https://" + site + "/itempdf/" + n
 					go mbpp.CreateDownloadJob(urlS, f, nil)
 				}()
 			}
