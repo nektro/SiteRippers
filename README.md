@@ -21,6 +21,7 @@ Usage of ./SiteRippers:
       --job-workers int     Maximum number of tasks to initialize in parallel the the background. (default 5)
       --list                Pass this to list all supported domains.
       --mbpp-bar-gradient   Enabling this will make the bar gradient from red/yellow/green.
+      --no-domain-dir       Makes output dir --save-dir/ instead of --save-dir/--site/.
       --save-dir string     Path to folder to save downloaded data to. (default "./data/")
       --site string         Domain of site to rip. None passed means rip all.
 ```

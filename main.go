@@ -22,6 +22,7 @@ func main() {
 	flagLS := pflag.Bool("list", false, "Pass this to list all supported domains.")
 	flagBC := pflag.Int("job-workers", 5, "Maximum number of tasks to initialize in parallel the the background.")
 	flagSA := pflag.String("as", "", "site alias")
+	flagND := pflag.Bool("no-domain-dir", false, "Makes output dir --save-dir/ instead of --save-dir/--site/.")
 	pflag.Parse()
 
 	//
@@ -47,7 +48,10 @@ func main() {
 
 	//
 
-	dd := doneDir + "/" + *flagSN
+	dd := doneDir
+	if !*flagND {
+		doneDir += "/" + *flagSN
+	}
 	fn, ok := idata.Handlers[*flagSN]
 	util.DieOnError(util.Assert(ok, "SiteRipper does not support that domain!"))
 	os.MkdirAll(dd, os.ModePerm)
