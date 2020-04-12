@@ -2,7 +2,9 @@ package iutil
 
 import (
 	"archive/tar"
+	"archive/zip"
 	"compress/gzip"
+	"encoding/json"
 	"errors"
 	"io"
 	"io/ioutil"
@@ -182,4 +184,29 @@ func SplitLen(str string, size int) []string {
 func UrlExt(urlS string) string {
 	urlO, _ := url.Parse(urlS)
 	return filepath.Ext(urlO.Path)
+}
+
+func MakeCounter(dirIn string, after int) *Counter {
+	return NewCounter(after, func() {
+		go PackCbzArchive(dirIn)
+	})
+}
+
+func PackCbzArchive(dirIn string) {
+	mbpp.CreateJob("Packing: "+dirIn, func(b *mbpp.BarProxy) {
+		outf, _ := os.Create(dirIn + ".cbz")
+		defer outf.Close()
+		outz := zip.NewWriter(outf)
+		defer outz.Close()
+		files, _ := ioutil.ReadDir(dirIn)
+		b.AddToTotal(int64(len(files) + 1))
+		for _, item := range files {
+			zw, _ := outz.Create(item.Name())
+			bs, _ := ioutil.ReadFile(dirIn + "/" + item.Name())
+			zw.Write(bs)
+			b.Increment(1)
+		}
+		os.RemoveAll(dirIn)
+		b.Increment(1)
+	})
 }
