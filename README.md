@@ -10,13 +10,8 @@
 
 A collection of Golang scripts to do entire rips of sites centralized in a single repo.
 
-## Prerequisites
-- Golang 1.12+
-
-## Installing
-```sh
-$ go get -v -u github.com/nektro/SiteRippers
-```
+## Download
+https://github.com/nektro/SiteRippers/releases/latest
 
 ## Usage
 ```
