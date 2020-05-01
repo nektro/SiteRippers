@@ -40,8 +40,11 @@ func init() {
 					//
 					cap := doc2.Find(`div.work__short-caption h1 span`)
 					artist := strings.ReplaceAll(iutil.RemoveAll(cap.Eq(0).Text(), "\t", "\n"), "/", "+")
+					artist = strings.Trim(artist, " ")
 					title := strings.ReplaceAll(iutil.RemoveAll(cap.Eq(1).Text(), "\t", "\n"), "/", "+")
+					title = strings.Trim(title, " ")
 					year := strings.ReplaceAll(iutil.RemoveAll(cap.Eq(2).Text(), "\t", "\n"), "/", "+")
+					year = strings.Trim(year, " ")
 					dir := doneDir + "/" + artist + "/" + year + "/" + title
 					os.MkdirAll(dir, os.ModePerm)
 					//
