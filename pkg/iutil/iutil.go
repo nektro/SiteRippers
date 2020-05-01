@@ -127,12 +127,12 @@ func FetchJson(urlS string, headers map[string]string) (*fastjson.Value, error) 
 }
 
 // FetchDocAs means Fetch Doc A's
-// params are total, index, string
+// params are total, index, href, el
 // returns if total > 0
-func FetchDocAs(urlS string, headers map[string]string, sel string, f func(int, int, string, *goquery.Selection)) bool {
+func FetchDocAs(urlS string, headers map[string]string, sel string, f func(int, int, string, *goquery.Selection)) int {
 	doc, err := FetchDoc(urlS, headers)
 	if err != nil {
-		return false
+		return -1
 	}
 	arr := doc.Find(sel)
 	n := arr.Length()
@@ -143,7 +143,7 @@ func FetchDocAs(urlS string, headers map[string]string, sel string, f func(int, 
 		}
 		f(n, i, hf, el)
 	})
-	return arr.Length() > 0
+	return arr.Length()
 }
 
 func RemoveAll(s string, subs ...string) string {
