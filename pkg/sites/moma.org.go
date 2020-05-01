@@ -33,7 +33,10 @@ func init() {
 					//
 					ah, _ := el.Find("a").Attr("href")
 					id := strings.Split(strings.Split(ah, "/")[3], "?")[0]
-					doc2, _ := iutil.FetchDoc("https://"+site+"/collection/works/"+id, nil)
+					doc2, err := iutil.FetchDoc("https://"+site+"/collection/works/"+id, nil)
+					if err != nil {
+						return
+					}
 					//
 					cap := doc2.Find(`div.work__short-caption h1 span`)
 					artist := strings.ReplaceAll(iutil.RemoveAll(cap.Eq(0).Text(), "\t", "\n"), "/", "+")

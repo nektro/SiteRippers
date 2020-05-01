@@ -54,6 +54,9 @@ func init() {
 			//
 			lnk, _ := a.Attr("href")
 			doc2, _ := iutil.FetchDoc("http://"+site+lnk+"/", nil)
+			if doc2 == nil {
+				return
+			}
 			rar, _ := doc2.Find(".content-wrap").Children().Eq(1).Children().Eq(0).Attr("href")
 			//
 			title := strings.ReplaceAll(fmt.Sprintf("[Settei] %s (%s)(%s).cbr", name, year, studio), "/", "+")
