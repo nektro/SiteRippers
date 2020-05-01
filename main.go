@@ -48,14 +48,13 @@ func main() {
 
 	//
 
-	dd := doneDir
 	if !*flagND {
 		doneDir += "/" + *flagSN
 	}
 	fn, ok := idata.Handlers[*flagSN]
 	util.DieOnError(util.Assert(ok, "SiteRipper does not support that domain!"))
-	os.MkdirAll(dd, os.ModePerm)
-	fn(util.FirstNonEmptyS(*flagSA, *flagSN), dd)
+	os.MkdirAll(doneDir, os.ModePerm)
+	fn(util.FirstNonEmptyS(*flagSA, *flagSN), doneDir)
 
 	//
 
