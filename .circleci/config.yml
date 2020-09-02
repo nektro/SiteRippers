@@ -3,7 +3,7 @@
 version: 2
 jobs:
   build:
-    working_directory: /go/src/github.com/nektro/SiteRippers
+    working_directory: /home/circleci/SiteRippers
     docker:
       - image: circleci/golang:1.12
     steps:
