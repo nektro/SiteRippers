@@ -32,7 +32,7 @@ func init() {
 					id := string(item.GetStringBytes("id"))
 					urlS := string(item.GetStringBytes("urls", "raw"))
 					pathS := dir + "/" + id + ".jpg"
-					metaF, _ := os.Create(pathS + ".txt")
+					metaF, _ := os.Create(pathS + ".json")
 					fmt.Fprintln(metaF, string(item.MarshalTo([]byte{})))
 					go mbpp.CreateDownloadJob(urlS, pathS, bar)
 				}
